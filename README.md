@@ -36,7 +36,7 @@ Transformer 由 **Ashish Vaswani, Noam Shazeer, Niki Parmar 等人** 于 2017 �
 - **任务类型**：英语 → 德语 的神经机器翻译任务。
 - **数据规模**：训练集 29000 句，验证集 1014 句，测试集 1000 句；所有语料均来自图像描述场景，句式简短、语义明确，适合快速验证模型能力。
 - **预处理方式**：采用空格分词 + 小写化处理，分别为源语言和目标语言构建 8000 词大小的词表，包含 `<PAD>`、`<SOS>`、`<EOS>`、`<UNK>` 四个特殊标记，序列最大长度限制为 50，超出部分截断。
-- **评估指标**：采用机器翻译领域通用标准指标 **BLEU（Bilingual Evaluation Understudy）**，使用 sacrebleu 工具计算，保证结果可复现、可横向对比。
+- **评估指标**：采用机器翻译领域通用标准指标 BLEU（Bilingual Evaluation Understudy，双语评估替补）：通过统计生成译文与人工参考译文中连续 n-gram 词组的重合比例，结合长度惩罚因子量化翻译质量，分数范围为 0~100，数值越高代表译文准确度与流畅度越好。本实现使用行业标准 sacrebleu 工具计算，统一分词与计分规则，保证结果可复现、可横向对比。
 
 数据集官方地址：https://huggingface.co/datasets/bentrevett/multi30k
 <img width="1265" height="700" alt="image" src="https://github.com/user-attachments/assets/aaa0c8cc-4a74-4ae0-8558-6ec9be0e7070" />
@@ -66,7 +66,7 @@ This reproduction uses the **Multi30k English-German parallel translation datase
 - **Task**: English → German neural machine translation.
 - **Data Scale**: 29,000 training sentences, 1,014 validation sentences, and 1,000 test sentences. All corpus comes from image captioning scenarios, with short sentences and clear semantics, suitable for quickly verifying model capability.
 - **Preprocessing**: Tokenized by whitespace with lowercasing. Vocabularies of size 8000 are built for source and target languages respectively, including four special tokens: `<PAD>`, `<SOS>`, `<EOS>`, `<UNK>`. Maximum sequence length is limited to 50, with longer sequences truncated.
-- **Evaluation Metric**: **BLEU (Bilingual Evaluation Understudy)**, the universal standard metric for machine translation, computed using the sacrebleu toolkit to ensure reproducible and comparable results.
+- **Evaluation Metric**: **BLEU (Bilingual Evaluation Understudy)**, the universal standard metric for machine translation. It quantifies translation quality by calculating the n-gram overlap between the generated translation and human reference translations, combined with a brevity penalty to penalize overly short outputs. The score ranges from 0 to 100, with higher values indicating better translation accuracy and fluency. This implementation uses the industry-standard sacrebleu toolkit with unified tokenization and scoring rules to ensure reproducible and comparable results.
 
 Official dataset page: https://huggingface.co/datasets/bentrevett/multi30k
 
